@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleBlogAPI.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "RequireLoggedIn")]
     [ApiController]
     [Route("api/[controller]")]
     public class CommentsController : Controller
@@ -22,6 +22,11 @@ namespace SimpleBlogAPI.Controllers
         [HttpGet("post/{postId}")]
         public async Task<ActionResult<IEnumerable<CommentDTO>>> GetCommentsByPostId(string postId)
         {
+            if (string.IsNullOrEmpty(postId))
+            {
+                return BadRequest("Invalid postId provided.");
+            }
+
             var comments = await _commentService.GetCommentsByPostIdAsync(postId);
             return Ok(comments);
         }
@@ -29,6 +34,11 @@ namespace SimpleBlogAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CommentDTO>> GetComment(string id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("Invalid id provided.");
+            }
+
             var comment = await _commentService.GetCommentByIdAsync(id);
             if (comment == null)
             {
@@ -38,32 +48,54 @@ namespace SimpleBlogAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateComment([FromBody] CommentDTO commentDto)
+        public async Task<ActionResult<CommentDTO>> CreateComment([FromBody] CommentDTO commentDto)
         {
+            if (commentDto == null)
+            {
+                return BadRequest("Comment data cannot be empty.");
+            }
+
             await _commentService.CreateCommentAsync(commentDto);
             return CreatedAtAction(nameof(GetComment), new { id = commentDto.Id }, commentDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateComment(string id, [FromBody] CommentDTO commentDto)
+        public async Task<IActionResult> UpdateComment(string id, [FromBody] CommentDTO commentDto)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("Invalid id provided.");
+            }
+
+            if (commentDto == null)
+            {
+                return BadRequest("Comment data cannot be empty.");
+            }
+
             var comment = await _commentService.GetCommentByIdAsync(id);
             if (comment == null)
             {
                 return NotFound();
             }
+
             await _commentService.UpdateCommentAsync(id, commentDto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteComment(string id)
+        public async Task<IActionResult> DeleteComment(string id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("Invalid id provided.");
+            }
+
             var comment = await _commentService.GetCommentByIdAsync(id);
             if (comment == null)
             {
                 return NotFound();
             }
+
             await _commentService.DeleteCommentAsync(id);
             return NoContent();
         }
