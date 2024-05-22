@@ -12,13 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.Configure<MongoDBSettings>(
-           builder.Configuration.GetSection(nameof(MongoDBSettings))
+           builder.Configuration.GetSection("MongoDBSettings")
            );
 
 builder.Services.AddSingleton<IMongoDBSettings>(sp =>
     sp.GetRequiredService<IOptions<MongoDBSettings>>().Value);
 
-builder.Services.AddSingleton<IMongoClient>(sp =>
+builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
 {
     var settings = sp.GetRequiredService<IOptions<MongoDBSettings>>().Value;
     return new MongoClient(settings.ConnectionString);
