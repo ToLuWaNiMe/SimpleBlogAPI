@@ -46,6 +46,7 @@ namespace SimpleBlogAPI.Controllers
             return Ok(post);
         }
 
+        [Authorize(Policy = "RequireLoggedIn")]
         [HttpPost]
         public async Task<ActionResult> CreatePost([FromBody] PostDTO postDto)
         {
@@ -64,6 +65,7 @@ namespace SimpleBlogAPI.Controllers
             }
         }
 
+        [Authorize(Policy = "RequireLoggedIn")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePost(string id, [FromBody] PostDTO postDto)
         {
@@ -87,6 +89,7 @@ namespace SimpleBlogAPI.Controllers
             return NoContent();
         }
 
+        [Authorize(Policy = "RequireLoggedIn")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePost(string id)
         {

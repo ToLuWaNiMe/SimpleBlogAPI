@@ -47,6 +47,7 @@ namespace SimpleBlogAPI.Controllers
             return Ok(comment);
         }
 
+        [Authorize(Policy = "RequireLoggedIn")]
         [HttpPost]
         public async Task<ActionResult<CommentDTO>> CreateComment([FromBody] CommentDTO commentDto)
         {
@@ -59,6 +60,7 @@ namespace SimpleBlogAPI.Controllers
             return CreatedAtAction(nameof(GetComment), new { id = commentDto.Id }, commentDto);
         }
 
+        [Authorize(Policy = "RequireLoggedIn")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateComment(string id, [FromBody] CommentDTO commentDto)
         {
