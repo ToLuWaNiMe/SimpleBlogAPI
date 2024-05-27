@@ -1,15 +1,3 @@
-RESTful API for a Simple Blog:
-- Create a RESTful API for a simple blog, including endpoints for:
-- Creating, reading, updating, and deleting posts
-- Creating, reading, updating, and deleting comments
-- User authentication and authorization
-- Implement proper error handling and validation
-- Use MongoDB as the database
-
-create a Documentation for the above project where i used ASPNET Core web api , i want to add it to my Project readme file (a README file on how to set up your application locally)
-
-Show drafts
-volume_up
 Simple Blog API with ASP.NET Core Web API and MongoDB
 This project provides a RESTful API for a simple blog application built with ASP.NET Core Web API and MongoDB.
 
@@ -66,14 +54,3 @@ The API validates user input to ensure data integrity.
 Authorization:
 
 Certain endpoints require user authentication and authorization to access them.
-
-Additional Notes:
-This documentation provides a basic overview. Refer to the actual code for detailed implementation.
-Implement proper security measures for user authentication and authorization.
-Consider using Swagger for interactive API documentation.
-Note: This documentation serves as a starting point and can be further enhanced with details specific to your implementation, such as:
-
-Specific data models for posts and comments.
-User model and authentication details (e.g., token format, authorization mechanisms).
-Error response schemas with specific error codes and messages.
-Additional API endpoints (e.g., user profile management).
