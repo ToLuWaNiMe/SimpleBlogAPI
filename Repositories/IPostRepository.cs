@@ -1,4 +1,5 @@
-﻿using SimpleBlogAPI.Models;
+﻿using MongoDB.Bson;
+using SimpleBlogAPI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

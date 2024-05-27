@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using SimpleBlogAPI.Models;
 using SimpleBlogAPI.Services;
 using System.Collections.Generic;

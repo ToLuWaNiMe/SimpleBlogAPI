@@ -12,7 +12,7 @@ public class MappingProfile : Profile
         CreateMap<UserForLoginDTO, User>();
 
         // Post mappings
-        CreateMap<Post, PostDTO>();
+        CreateMap<Post, PostDTO>().ReverseMap();
 
         // Comment mappings
         CreateMap<Comment, CommentDTO>();

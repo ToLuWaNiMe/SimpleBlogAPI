@@ -1,7 +1,11 @@
-﻿namespace SimpleBlogAPI.DTOs
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace SimpleBlogAPI.DTOs
 {
     public class PostDTO
     {
+     
         public string Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }

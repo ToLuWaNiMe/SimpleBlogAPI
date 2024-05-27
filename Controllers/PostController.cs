@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using SimpleBlogAPI.DTOs;
 using SimpleBlogAPI.Services;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Threading.Tasks;
 
 namespace SimpleBlogAPI.Controllers
@@ -13,17 +16,19 @@ namespace SimpleBlogAPI.Controllers
     public class PostsController : Controller
     {
         private readonly IPostService _postService;
+        private readonly IMapper _mapper;
 
-        public PostsController(IPostService postService)
+        public PostsController(IPostService postService, IMapper mapper)
         {
             _postService = postService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PostDTO>>> GetAllPosts()
         {
             var posts = await _postService.GetAllPostsAsync();
-            if (posts == null) // Handle potential null result from service layer
+            if (posts == null)
             {
                 return StatusCode(500, "An error occurred while retrieving posts.");
             }
@@ -51,11 +56,13 @@ namespace SimpleBlogAPI.Controllers
         public async Task<ActionResult> CreatePost([FromBody] PostDTO postDto)
         {
             if (!ModelState.IsValid)
-            { 
-               return BadRequest(ModelState);
+            {
+                return BadRequest(ModelState);
             }
+
             try
             {
+                postDto.Id = Guid.NewGuid().ToString();
                 await _postService.CreatePostAsync(postDto);
                 return CreatedAtAction(nameof(GetPostById), new { id = postDto.Id }, postDto);
             }

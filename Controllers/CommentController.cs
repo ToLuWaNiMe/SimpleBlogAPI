@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlogAPI.DTOs;
 using SimpleBlogAPI.Services;
@@ -13,10 +14,13 @@ namespace SimpleBlogAPI.Controllers
     public class CommentsController : Controller
     {
         private readonly ICommentService _commentService;
+        private readonly IMapper _mapper;
 
-        public CommentsController(ICommentService commentService)
+        public CommentsController(ICommentService commentService, IMapper mapper)
         {
             _commentService = commentService;
+            _mapper = mapper;
+
         }
 
         [HttpGet("post/{postId}")]
