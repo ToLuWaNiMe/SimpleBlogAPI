@@ -30,10 +30,11 @@ namespace SimpleBlogAPI.Services
             return _mapper.Map<CommentDTO>(comment);
         }
 
-        public async Task CreateCommentAsync(CommentDTO commentDto)
+        public async Task<Comment> CreateCommentAsync(CommentDTO commentDto)
         {
             var comment = _mapper.Map<Comment>(commentDto);
             await _commentRepository.CreateCommentAsync(comment);
+            return comment;
         }
 
         public async Task UpdateCommentAsync(string id, CommentDTO commentDto)

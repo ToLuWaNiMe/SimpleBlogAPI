@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using SimpleBlogAPI.DTOs;
 using SimpleBlogAPI.Services;
 using System.Collections.Generic;
@@ -55,13 +56,20 @@ namespace SimpleBlogAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<CommentDTO>> CreateComment([FromBody] CommentDTO commentDto)
         {
-            if (commentDto == null)
+            if (!ModelState.IsValid)
             {
-                return BadRequest("Comment data cannot be empty.");
+                return BadRequest(ModelState);
             }
-
-            await _commentService.CreateCommentAsync(commentDto);
-            return CreatedAtAction(nameof(GetComment), new { id = commentDto.Id }, commentDto);
+            try
+            {
+                commentDto.Id = ObjectId.GenerateNewId().ToString();
+                await _commentService.CreateCommentAsync(commentDto);
+                return CreatedAtAction(nameof(GetComment), new { id = commentDto.Id }, commentDto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [Authorize(Policy = "RequireLoggedIn")]

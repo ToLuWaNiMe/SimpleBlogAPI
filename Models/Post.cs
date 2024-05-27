@@ -6,7 +6,7 @@ namespace SimpleBlogAPI.Models
     public class Post
     {
         [BsonId]
-        [BsonRepresentation(BsonType.String)]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
         [BsonElement("Title")]

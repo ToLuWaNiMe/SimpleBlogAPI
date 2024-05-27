@@ -62,7 +62,7 @@ namespace SimpleBlogAPI.Controllers
 
             try
             {
-                postDto.Id = Guid.NewGuid().ToString();
+                postDto.Id = ObjectId.GenerateNewId().ToString();
                 await _postService.CreatePostAsync(postDto);
                 return CreatedAtAction(nameof(GetPostById), new { id = postDto.Id }, postDto);
             }

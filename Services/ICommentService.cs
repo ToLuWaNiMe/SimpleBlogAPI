@@ -1,4 +1,5 @@
 ﻿using SimpleBlogAPI.DTOs;
+using SimpleBlogAPI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,7 +9,7 @@ namespace SimpleBlogAPI.Services
     {
         Task<IEnumerable<CommentDTO>> GetCommentsByPostIdAsync(string postId);
         Task<CommentDTO> GetCommentByIdAsync(string id);
-        Task CreateCommentAsync(CommentDTO commentDto);
+        Task<Comment> CreateCommentAsync(CommentDTO commentDto);
         Task UpdateCommentAsync(string id, CommentDTO commentDto);
         Task DeleteCommentAsync(string id);
     }

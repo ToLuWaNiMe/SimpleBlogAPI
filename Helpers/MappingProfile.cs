@@ -15,6 +15,8 @@ public class MappingProfile : Profile
         CreateMap<Post, PostDTO>().ReverseMap();
 
         // Comment mappings
+        CreateMap<CommentDTO, Comment>();
         CreateMap<Comment, CommentDTO>();
+
     }
 }
