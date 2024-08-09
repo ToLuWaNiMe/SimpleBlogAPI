@@ -11,17 +11,14 @@ MongoDB (https://www.mongodb.com/)
 Setup:
 Clone this repository.
 Restore NuGet packages:
-Bash
 dotnet restore
-Use code with caution.
-content_copy
+
 Configure your MongoDB connection string in the appsettings.json file.
 
 Start the application:
 Bash
 dotnet run
-Use code with caution.
-content_copy
+
 API Endpoints:
 Posts:
 
