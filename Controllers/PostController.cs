@@ -104,7 +104,6 @@ namespace SimpleBlogAPI.Controllers
             {
                 return BadRequest("Invalid post id provided.");
             }
-
             var post = await _postService.GetPostByIdAsync(id);
             if (post == null)
             {
