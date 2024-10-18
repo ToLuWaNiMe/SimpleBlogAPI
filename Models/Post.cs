@@ -24,5 +24,4 @@ namespace SimpleBlogAPI.Models
         [BsonElement("Comments")]
         public List<Comment> Comments { get; set; } = new List<Comment>();
     }
-
 }
