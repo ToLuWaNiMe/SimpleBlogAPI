@@ -42,7 +42,6 @@ namespace SimpleBlogAPI.Controllers
             {
                 return BadRequest("Invalid id provided.");
             }
-
             var post = await _postService.GetPostByIdAsync(id);
             if (post == null)
             {
@@ -59,7 +58,6 @@ namespace SimpleBlogAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             try
             {
                 postDto.Id = ObjectId.GenerateNewId().ToString();
@@ -85,7 +83,6 @@ namespace SimpleBlogAPI.Controllers
             {
                 return BadRequest("Post data cannot be empty.");
             }
-
             var post = await _postService.GetPostByIdAsync(id);
             if (post == null)
             {
@@ -109,7 +106,6 @@ namespace SimpleBlogAPI.Controllers
             {
                 return NotFound();
             }
-
             await _postService.DeletePostAsync(id);
             return NoContent();
         }
