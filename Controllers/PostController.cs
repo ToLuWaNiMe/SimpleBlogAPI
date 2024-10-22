@@ -78,7 +78,6 @@ namespace SimpleBlogAPI.Controllers
             {
                 return BadRequest("Invalid post id provided.");
             }
-
             if (postDto == null)
             {
                 return BadRequest("Post data cannot be empty.");
@@ -88,7 +87,6 @@ namespace SimpleBlogAPI.Controllers
             {
                 return NotFound();
             }
-
             await _postService.UpdatePostAsync(id, postDto);
             return NoContent();
         }
